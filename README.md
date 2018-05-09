@@ -1,17 +1,25 @@
 # Pandas DataFrame constructor for DB cursor
 
-We will be using the `memory_profiler` module to monitor memory usage.
+## Create toy database
+To create a toy sqlite database with a chosen number of rows and three columns of type TEXT, INTEGER, and REAL
+run
 
-To use `memory_profiler` simply run `mprof run <python_exec>`, and visualize with `mprof plot`. You can modify the interval of the memory checks with the `--interval` flag. For example `mprof run --interval 0.01 <python_exec>`.
-
-The test database contains 10,000 rows and 3 columns of type TEXT, INTEGER, and REAL. You can quickly modify the database with `db_creator.py`.
-
-## Testing `pd.read_sql()`'s `chunksize` parameter.
-
-To see the difference in memory management between using the `chunksize` parameter, run:
-
-* Without `chunksize`:
-  `mprof run --interval 0.5 tests/pandas_implementation.py; mprof plot`
-
-* With `chunksize=10000`:
-  `mprof run --interval 0.5 tests/pandas_implementation_chunksize.py; mprof plot`
+    python cli.py create_db
+ 
+ To see available parameters to `create_db` run `python cli.py create_db --help`
+ 
+ ## Memory profiling
+ Functions to be profiled live in the `to_profile` directory. We will use the 
+ [memory_profiler](https://pypi.org/project/memory_profiler/) module to profile our memory usage. To profile a 
+ python executable (for example, `to_profile/pd_read_sql.py`) at the desired interval (for example, 0.5 s)run:
+ 
+     mprof run --interval 0.5 to_profile/pd_read_sql.py
+     
+ The profiler generates a `.dat` file that you can visualize with:
+ 
+     mprof plot <.dat file>
+     
+ Omitting the `<.dat>` file above simply plots the latest profile generated.
+ 
+ **Note**: `mprof` takes a python executable so it is not possible to pass arguments with argparse/click. Change
+ parameters through the `config.py` file.

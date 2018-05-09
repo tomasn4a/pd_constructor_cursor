@@ -1,0 +1,8 @@
+# PyCharm stuff
+.idea/
+
+# sqlite db
+*.db
+
+# profiler data
+*.dat
