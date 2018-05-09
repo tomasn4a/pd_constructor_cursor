@@ -6,3 +6,6 @@
 
 # profiler data
 *.dat
+
+# DS_Store
+.DS_Store
